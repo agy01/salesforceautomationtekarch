@@ -29,7 +29,7 @@ public class TC07_MyProfile_Username extends BaseTest {
 		hp.areAllOptionsPresent();
 		
 		//Click on My profile from the user menu and click on edit profile on my profile page
-		hp.goToMyProfile();
+		hp.goToMyProfile(driver);
 		waitUtils.waitForTitle(driver, FileUtils.readMyProfilePropertiesFile("myprofile.title"), 20);
 		Assert.assertEquals(driver.getTitle(), FileUtils.readMyProfilePropertiesFile("myprofile.title"), "Actual and expected Title of my profile page should be same");
 		myProfile.clickOnEditProfile();

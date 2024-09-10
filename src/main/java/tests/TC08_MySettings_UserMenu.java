@@ -27,7 +27,7 @@ public class TC08_MySettings_UserMenu extends BaseTest {
 		hp.areAllOptionsPresent();
 		
 		//Click on My settings option and Validate the title
-		hp.goToMySettings();
+		hp.goToMySettings(driver);
 		waitUtils.waitForTitle(driver, FileUtils.readMySettingsPropertiesFile("mysettings.title"), 20);
 		Assert.assertEquals(driver.getTitle(), FileUtils.readMySettingsPropertiesFile("mysettings.title"), "Actual and expected Title of my setting page should match");
 		

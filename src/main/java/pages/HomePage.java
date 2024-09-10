@@ -79,20 +79,24 @@ public class HomePage {
 		return actualOptions;
 	}
 	
-	public void goToMyProfile() {
+	public MyProfilePage goToMyProfile(WebDriver driver) {
 		this.myProfile.click();
+		return new MyProfilePage(driver);
 	}
 	
-	public void goToMySettings() {
+	public MySettingsPage goToMySettings(WebDriver driver) {
 		this.mySettings.click();
+		return new MySettingsPage(driver);
 	}
 	
-	public void goToDeveloperConsole() {
+	public DeveloperConsole goToDeveloperConsole(WebDriver driver) {
 		this.developerConsole.click();
+		return new DeveloperConsole(driver);
 	}
 	
-	public void clickLogout() {
+	public LoginPage clickLogout(WebDriver driver) {
 		this.logout.click();
+		return new LoginPage(driver);
 	}
 
 }

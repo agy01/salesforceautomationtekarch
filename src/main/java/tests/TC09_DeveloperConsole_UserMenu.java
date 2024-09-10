@@ -25,7 +25,7 @@ public class TC09_DeveloperConsole_UserMenu extends BaseTest{
 		hp.areAllOptionsPresent();
 		
 		//Select Developer console from the options of user menu
-		hp.goToDeveloperConsole();
+		hp.goToDeveloperConsole(driver);
 		
 		//Validates Window pops up and switch to the new window
 		boolean isDeveloperConsoleOpened = devConsole.switchToDeveloperConsole();
