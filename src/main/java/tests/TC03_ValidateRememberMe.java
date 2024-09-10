@@ -18,9 +18,8 @@ public class TC03_ValidateRememberMe extends BaseTest {
 		public void validateRememberMe() throws FileNotFoundException, IOException, InterruptedException {
 		
 		//Launch application and Validate
-		driver.navigate().to(FileUtils.readLoginPropertiesFile("prod.url")); 
-		String expectedApplicationTitle = FileUtils.readLoginPropertiesFile("prod.application.title");
-		Assert.assertEquals(driver.getTitle(), expectedApplicationTitle, "Application should be launched");
+		lp.launchApplication();
+		lp.validatePageTitle();
 		
 		driver.manage().timeouts().implicitlyWait(Duration.ofSeconds(20));
 		

@@ -16,7 +16,7 @@ public class TC06_ValidateUserMenuDropDown extends BaseTest {
 		public void validateUserMenuDropDown() throws FileNotFoundException, IOException {
 		
 		//Launch the application
-		driver.navigate().to(FileUtils.readLoginPropertiesFile("prod.url"));
+		lp.launchApplication();
 		
 		//Login to the application
 		lp.loginToApplication(driver, FileUtils.readLoginPropertiesFile("valid.username"), FileUtils.readLoginPropertiesFile("valid.password"));

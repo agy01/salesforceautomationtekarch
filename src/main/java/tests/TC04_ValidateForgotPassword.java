@@ -16,8 +16,8 @@ public class TC04_ValidateForgotPassword extends BaseTest{
 		public void validateForgotPassword() throws FileNotFoundException, IOException {
 		
 		//Launch Application and validate
-		driver.get(FileUtils.readLoginPropertiesFile("prod.url"));
-		Assert.assertEquals(driver.getTitle(), FileUtils.readLoginPropertiesFile("prod.application.title"), "Application should be launched");
+		lp.launchApplication();
+		lp.validatePageTitle();
 				
 		driver.manage().timeouts().implicitlyWait(Duration.ofSeconds(20));
 		

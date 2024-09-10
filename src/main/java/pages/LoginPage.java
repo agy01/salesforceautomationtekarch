@@ -1,15 +1,23 @@
 package pages;
 
 
+import java.io.FileNotFoundException;
+import java.io.IOException;
+
 import org.openqa.selenium.WebDriver;
 import org.openqa.selenium.WebElement;
 import org.openqa.selenium.support.FindBy;
 import org.openqa.selenium.support.PageFactory;
 
+import utils.FileUtils;
+
 public class LoginPage {
+	
+	protected WebDriver driver;
 	
 	// Constructor for initializing the Page Object
 	public LoginPage(WebDriver driver) {
+		this.driver = driver;
 		PageFactory.initElements(driver, this);
 	}
 	
@@ -47,6 +55,22 @@ public class LoginPage {
 	
 	//PageObject of Methods
 		
+	//Method to launch the application
+	public void launchApplication() throws FileNotFoundException, IOException {
+		driver.navigate().to(FileUtils.readLoginPropertiesFile("prod.url"));
+	}
+	
+	//Method to validate application page title 
+	public boolean validatePageTitle() throws FileNotFoundException, IOException {
+		boolean isTitleMatched = false;
+		String expectedApplicationTitle = FileUtils.readLoginPropertiesFile("prod.application.title");
+		String actualApplicationTitle = driver.getTitle();
+		if(actualApplicationTitle.equals(expectedApplicationTitle)) {
+			isTitleMatched = true;
+		}
+		return isTitleMatched;
+	}
+	
 	public void enterUserName(String username) {
 		this.username.sendKeys(username);
 	}
