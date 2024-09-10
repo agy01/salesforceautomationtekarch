@@ -16,7 +16,7 @@ public class TC09_DeveloperConsole_UserMenu extends BaseTest{
 		public void validateDeveloperConsoleOption() throws FileNotFoundException, IOException, InterruptedException {
 		
 		//Launch and login to the application
-		driver.navigate().to(FileUtils.readLoginPropertiesFile("prod.url"));
+		lp.launchApplication();
 		lp.loginToApplication(driver, FileUtils.readLoginPropertiesFile("valid.username"), FileUtils.readLoginPropertiesFile("valid.password"));
 		
 		waitUtils.waitForElementToBeClickable(driver, hp.userMenuDropDown, 20);

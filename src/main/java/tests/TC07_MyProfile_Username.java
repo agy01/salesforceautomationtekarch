@@ -16,8 +16,7 @@ public class TC07_MyProfile_Username extends BaseTest {
 		public void validateMyProfieOption() throws FileNotFoundException, IOException, InterruptedException {
 		
 		//Launch the application
-		driver.navigate().to(FileUtils.readLoginPropertiesFile("prod.url"));
-		
+		lp.launchApplication();		
 		//Login to the application
 		lp.loginToApplication(driver, FileUtils.readLoginPropertiesFile("valid.username"), FileUtils.readLoginPropertiesFile("valid.password"));
 		
@@ -41,12 +40,9 @@ public class TC07_MyProfile_Username extends BaseTest {
 		//Click on about tab and enter the lastname 
 		myProfile.goToAboutTab();
 		myProfile.editlastnameInAboutTab(FileUtils.readMyProfilePropertiesFile("about.lastname"));
-		
-		myProfile.pageRefresh();
-		
+			
 		//validate username on the profile page
-		boolean isUpdated = myProfile.isUsernameUpdated(FileUtils.readMyProfilePropertiesFile("userprofile.username"));
-		Assert.assertTrue(isUpdated, "Username Should be update in my profile page");
+		Assert.assertTrue(myProfile.isUsernameUpdated(), "Username in the profile page should be updated");
 		
 		//Click on post and share the post message to feeds
 		myProfile.postAMessage(FileUtils.readMyProfilePropertiesFile("post.message"));
@@ -60,7 +56,6 @@ public class TC07_MyProfile_Username extends BaseTest {
 		myProfile.shareAFile(FileUtils.readMyProfilePropertiesFile("upload.filepath"));
 		Thread.sleep(2000);
 		
-		myProfile.pageRefresh();
 		//Validate if the shared file in the feed against expected file
 		boolean isFiledisplayed = myProfile.isFileShared(FileUtils.readMyProfilePropertiesFile("upload.filename"));
 		Assert.assertTrue(isFiledisplayed, "Uploded file and the file in feed should be same");

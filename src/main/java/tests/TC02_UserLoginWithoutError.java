@@ -16,9 +16,8 @@ public class TC02_UserLoginWithoutError extends BaseTest{
 		public void validLogin() throws FileNotFoundException, IOException, InterruptedException{		
 		
 		//Launch Application and Validate
-		driver.navigate().to(FileUtils.readLoginPropertiesFile("prod.url"));	
-		String expectedApplicationTitle = FileUtils.readLoginPropertiesFile("prod.application.title");
-		Assert.assertEquals(driver.getTitle(), expectedApplicationTitle, "Application should be launched");
+		lp.launchApplication();
+		lp.validatePageTitle();
 		
 		//login to Application and Validate if landed on homePage
 		lp.loginToApplication(driver, FileUtils.readLoginPropertiesFile("valid.username"), FileUtils.readLoginPropertiesFile("valid.password"));

@@ -31,6 +31,7 @@ public class waitUtils {
 			
 		}
 		
+		//Method used to wait for the element to be clickable
 		public static void waitForElementToBeClickable(WebDriver driver, WebElement element, int timeoutInSec) {
 			WebDriverWait wait = new WebDriverWait(driver, Duration.ofSeconds(timeoutInSec));
 			wait.until(ExpectedConditions.elementToBeClickable(element));

@@ -17,8 +17,8 @@ public class TC05_ValidateInvalidCredErrorMessage extends BaseTest{
 		public void validateInvalidCreds() throws FileNotFoundException, IOException {
 		
 		//Launch Application and Validate
-		driver.navigate().to(FileUtils.readLoginPropertiesFile("prod.url"));
-		Assert.assertEquals(driver.getTitle(), FileUtils.readLoginPropertiesFile("prod.application.title"), "Application should be launched");
+		lp.launchApplication();
+		lp.validatePageTitle();
 		
 		driver.manage().timeouts().implicitlyWait(Duration.ofSeconds(20));
 		

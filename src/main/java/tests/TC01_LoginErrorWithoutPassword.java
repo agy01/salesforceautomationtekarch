@@ -19,10 +19,9 @@ public class TC01_LoginErrorWithoutPassword extends BaseTest{
 		public void loginWithoutPassword() throws FileNotFoundException, IOException{
 		
 		//Launch Application and validate
-		driver.navigate().to(FileUtils.readLoginPropertiesFile("prod.url"));
-		String expectedApplicationTitle = FileUtils.readLoginPropertiesFile("prod.application.title");
-		Assert.assertEquals(driver.getTitle(), expectedApplicationTitle, "Application should be launched");
-				
+		lp.launchApplication();
+		lp.validatePageTitle();
+		
 		driver.manage().timeouts().implicitlyWait(Duration.ofSeconds(20));
 		
 		//Entering and Validating the username

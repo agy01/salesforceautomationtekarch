@@ -1,6 +1,9 @@
 package pages;
 
 
+import java.io.FileNotFoundException;
+import java.io.IOException;
+
 import org.openqa.selenium.By;
 import org.openqa.selenium.WebDriver;
 import org.openqa.selenium.WebElement;
@@ -8,7 +11,9 @@ import org.openqa.selenium.interactions.Actions;
 import org.openqa.selenium.support.FindBy;
 import org.openqa.selenium.support.PageFactory;
 
+import contants.FileConstants;
 import utils.ActionUtils;
+import utils.FileUtils;
 import utils.waitUtils;
 
 public class MyProfilePage {
@@ -34,6 +39,8 @@ public class MyProfilePage {
 				public WebElement saveButton;
 			@FindBy(xpath = "//li[@id=\"contactTab\"]/a")
 			public WebElement contactTab;
+		@FindBy(xpath = "//span[@id=\"tailBreadcrumbNode\"]")
+		public WebElement usernameInProfilePage;
 	
 	
 	@FindBy(xpath =  "//a[@id=\"publisherAttachTextPost\"]/span[1]")
@@ -75,16 +82,19 @@ public class MyProfilePage {
 				
 		
 	
-	
-	
-	
-	//clicks on edit profile icon and switch to iframe
+	/**
+	 * clicks on edit profile icon and switch to iframe
+	 */
 	public void clickOnEditProfile() {
 		this.editProfile.click();
 		driver.switchTo().frame(editProfileIframe);
 	}
 	
-	//validates if the window has about and contact tabs and switch back to main frame
+	
+	/**
+	 * validates if the window has about and contact tabs and switch back to main frame
+	 * @return
+	 */
 	public boolean areAboutTabAndContactTabisDispalyed() {
 		try {
 			waitUtils.waitForElementToBeVisible(driver, aboutTab, 10);
@@ -114,18 +124,15 @@ public class MyProfilePage {
 		driver.switchTo().defaultContent();
 	}
 	
-	public void pageRefresh() {
-		driver.navigate().refresh();
-	}
 	
 	//waits for the user name to be visible in profile page and validate with expected username
-	public boolean isUsernameUpdated(String expectedUsername) {
-//		WebDriverWait wait = new WebDriverWait(driver, Duration.ofSeconds(20));
-//		WebElement updatedUsername = wait.until(ExpectedConditions.visibilityOfElementLocated(By.xpath("//span[@id=\"tailBreadcrumbNode\" and contains(text(), '" + expectedUsername.trim()  + "')]")));
-		WebElement updatedUsername = waitUtils.visibilityOfElementLocated(driver, By.xpath("//span[@id=\"tailBreadcrumbNode\" and contains(text(), '" + expectedUsername.trim()  + "')]"));
-		String actualUsername = updatedUsername.getText();
-		System.out.println("UserName is updated");
-		return actualUsername.equals(expectedUsername);
+	public boolean isUsernameUpdated() throws FileNotFoundException, IOException {
+		String lastname = FileUtils.readMyProfilePropertiesFile("about.lastname");
+		boolean isLastNameChanged = true;
+		if(!this.usernameInProfilePage.getText().contains(lastname)) {
+			isLastNameChanged = false;
+		}
+		return isLastNameChanged;
 	}
 	
 	//clicks on post, enters the text message and shares
@@ -145,8 +152,6 @@ public class MyProfilePage {
 	
 	//Validates the message posted in the feed
 	public boolean isPostShared(String expectedMessage) {
-//		WebDriverWait wait = new WebDriverWait(driver, Duration.ofSeconds(20));
-//		WebElement sharedPost = wait.until(ExpectedConditions.visibilityOfElementLocated(By.xpath("//span/p[contains(text(), '" + expectedMessage + "')]")));
 		WebElement sharedPost = waitUtils.visibilityOfElementLocated(driver, By.xpath("//span/p[contains(text(), '" + expectedMessage + "')]"));
 		String actualPost = sharedPost.getText();
 		System.out.println("Post is Shared");
@@ -157,15 +162,13 @@ public class MyProfilePage {
 	public void shareAFile(String filepath) {
 		this.file.click();
 		this.uploadfileFromComputer.click();
-		this.chooseFile.sendKeys(filepath);
+		this.chooseFile.sendKeys(FileConstants.TEST_FILE_UPLOAD_PATH);
 		this.sharefile.click();
 	}
 	
 	
 	//Validate the shared file on the feed
 	public boolean isFileShared(String expectedfilename) {
-//		WebDriverWait wait = new WebDriverWait(driver, Duration.ofSeconds(20));
-//		WebElement fileInFeed = wait.until(ExpectedConditions.visibilityOfElementLocated(By.xpath("//span[contains(text(), '" + expectedfilename +"')]")));
 		WebElement fileInFeed = waitUtils.visibilityOfElementLocated(driver, By.xpath("//span[contains(text(), '" + expectedfilename +"')]"));
 		String actualfilename = fileInFeed.getText();
 		System.out.println("File is uploaded");
@@ -177,7 +180,7 @@ public class MyProfilePage {
 		ActionUtils.mouseHover(driver, this.addPhoto);
 		driver.switchTo().frame(addPhotoIframe);
 		waitUtils.waitForElementToBeVisible(driver, this.choosePhoto, 20);
-		this.choosePhoto.sendKeys(photoPath);
+		this.choosePhoto.sendKeys(FileConstants.TEST_PHOTO_UPLOAD_PATH);
 		this.savePhoto.click();
 	}
 	
