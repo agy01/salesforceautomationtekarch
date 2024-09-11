@@ -7,9 +7,6 @@ import org.testng.Assert;
 import org.testng.annotations.Test;
 
 import utils.BaseTest;
-import utils.FileUtils;
-import utils.waitUtils;
-
 public class TC02_UserLoginWithoutError extends BaseTest{
 
 		@Test
@@ -20,10 +17,8 @@ public class TC02_UserLoginWithoutError extends BaseTest{
 		lp.validatePageTitle();
 		
 		//login to Application and Validate if landed on homePage
-		lp.loginToApplication(driver, FileUtils.readLoginPropertiesFile("valid.username"), FileUtils.readLoginPropertiesFile("valid.password"));
-		String expectedHomePageTitle = FileUtils.readLoginPropertiesFile("homepage.title");
-		waitUtils.waitForTitle(driver, expectedHomePageTitle, 20);
-		Assert.assertEquals(driver.getTitle(), expectedHomePageTitle, "After login user should land to home page");
+		lp.loginToApplication();
+		Assert.assertTrue(hp.validateHomePageTitle(), "Homepage should be dispalyed");
 		
 		System.out.println("TC02_UserLoginWithoutError testing completed");
 

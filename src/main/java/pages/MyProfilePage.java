@@ -96,19 +96,20 @@ public class MyProfilePage {
 	 * @return
 	 */
 	public boolean areAboutTabAndContactTabisDispalyed() {
+		boolean areTheTabsDisplayed = false;
 		try {
 			waitUtils.waitForElementToBeVisible(driver, aboutTab, 10);
 			waitUtils.waitForElementToBeVisible(driver, contactTab, 5);
 			Thread.sleep(2000);
-			boolean result = aboutTab.isDisplayed() && contactTab.isDisplayed();
-			return result;
+			if(aboutTab.isDisplayed() && contactTab.isDisplayed()) {
+				return areTheTabsDisplayed = true;
+			}
 		} catch (Exception e) {
 	        System.out.println("Exception while checking tabs inside iframe: " + e.getMessage());
-
 	        // Ensure we switch back to the main content in case of any errors
 	        driver.switchTo().defaultContent();
-	        return false;
 	    }
+		return areTheTabsDisplayed;
 	}
 	
 	public void goToAboutTab(){
@@ -117,7 +118,8 @@ public class MyProfilePage {
 	}
 	
 	//Enters the lastname in the About tab and switch back to the main frame
-	public void editlastnameInAboutTab(String lastname) {
+	public void editlastnameInAboutTab() throws FileNotFoundException, IOException {
+		String lastname = FileUtils.readMyProfilePropertiesFile("about.lastname");
 		this.lastname.clear();
 		this.lastname.sendKeys(lastname);
 		this.saveButton.click();
@@ -136,12 +138,13 @@ public class MyProfilePage {
 	}
 	
 	//clicks on post, enters the text message and shares
-	public void postAMessage(String message) {
+	public void postAMessage() {
 		try {
 		this.post.click();
 		driver.switchTo().frame(postWindowIframe);
 		this.messageField.click();
 		waitUtils.waitForElementToBeClickable(driver, this.messageField, 25);
+		String message = FileUtils.readMyProfilePropertiesFile("post.message");
 		this.messageField.sendKeys(message);
 		driver.switchTo().defaultContent();
 		this.sharePost.click();
@@ -151,15 +154,20 @@ public class MyProfilePage {
 	}
 	
 	//Validates the message posted in the feed
-	public boolean isPostShared(String expectedMessage) {
+	public boolean isPostShared() throws FileNotFoundException, IOException {
+		boolean isMessagePosted = false;
+		String expectedMessage = FileUtils.readMyProfilePropertiesFile("post.message");
 		WebElement sharedPost = waitUtils.visibilityOfElementLocated(driver, By.xpath("//span/p[contains(text(), '" + expectedMessage + "')]"));
 		String actualPost = sharedPost.getText();
-		System.out.println("Post is Shared");
-		return actualPost.equals(expectedMessage);
+		if(actualPost.equals(expectedMessage)){
+			System.out.println("Post is Shared");
+			return isMessagePosted = true;
+		}
+		return isMessagePosted;
 	}
 	
 	//Click on file link, send the file path and share the file
-	public void shareAFile(String filepath) {
+	public void shareAFile() {
 		this.file.click();
 		this.uploadfileFromComputer.click();
 		this.chooseFile.sendKeys(FileConstants.TEST_FILE_UPLOAD_PATH);
@@ -168,15 +176,20 @@ public class MyProfilePage {
 	
 	
 	//Validate the shared file on the feed
-	public boolean isFileShared(String expectedfilename) {
+	public boolean isFileShared() throws FileNotFoundException, IOException {
+		boolean isFileUploaded = false;
+		String expectedfilename = FileUtils.readMyProfilePropertiesFile("upload.filename");
 		WebElement fileInFeed = waitUtils.visibilityOfElementLocated(driver, By.xpath("//span[contains(text(), '" + expectedfilename +"')]"));
 		String actualfilename = fileInFeed.getText();
-		System.out.println("File is uploaded");
-		return actualfilename.equals(expectedfilename);
+		if(actualfilename.equals(expectedfilename)) {
+			System.out.println("File is uploaded");
+			return isFileUploaded = true;
+		}
+		return isFileUploaded;
 	}
 	
 	//Click on add photo and switch to iframe and save the photo
-	public void addProfilePhoto(String photoPath) {
+	public void addProfilePhoto() {
 		ActionUtils.mouseHover(driver, this.addPhoto);
 		driver.switchTo().frame(addPhotoIframe);
 		waitUtils.waitForElementToBeVisible(driver, this.choosePhoto, 20);
@@ -198,12 +211,15 @@ public class MyProfilePage {
 	
 	//Validates if the photo is uploaded
 	public boolean isPhotoUploaded() {
-//		WebDriverWait wait = new WebDriverWait(driver, Duration.ofSeconds(20));
-//		WebElement photoUploaded = wait.until(ExpectedConditions.visibilityOfElementLocated(By.xpath("//span[@class=\"profileImage chatter-avatarFull chatter-avatar\"]")));
-		WebElement photoUploaded = waitUtils.visibilityOfElementLocated(driver, By.xpath("//span[@class=\"profileImage chatter-avatarFull chatter-avatar\"]"));
-		System.out.println("Photo is uploaded");
-		return photoUploaded.isDisplayed();
+		boolean isPhotoDisplayed = false;
+		WebElement photoUploaded = waitUtils.visibilityOfElementLocated(driver,
+				By.xpath("//span[@class=\"profileImage chatter-avatarFull chatter-avatar\"]"));
+		if (photoUploaded.isDisplayed()) {
+			System.out.println("Photo is uploaded");
+			return isPhotoDisplayed = true;
 		}
+		return isPhotoDisplayed;
+	}
 	
 
 }

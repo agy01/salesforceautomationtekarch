@@ -26,7 +26,7 @@ public class TC04_ValidateForgotPassword extends BaseTest{
 		Assert.assertEquals(driver.getTitle(), FileUtils.readLoginPropertiesFile("forgotPassword.title"),"Forgot Password Page should be displayed");
 		
 		//enter username in forgot password page and click continue(calling from loginPage modular function)
-		lp.enterUserNameInForgotPasswordPage(FileUtils.readLoginPropertiesFile("valid.username"));
+		lp.enterUserNameInForgotPasswordPage();
 		
 		//validate if email send to user
 		Assert.assertEquals(driver.getTitle(), FileUtils.readLoginPropertiesFile("checkEmail.title"), "Password reset email should be sent to the user");

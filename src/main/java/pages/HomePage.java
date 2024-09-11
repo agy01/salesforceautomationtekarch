@@ -13,10 +13,14 @@ import org.testng.Assert;
 
 import utils.ActionUtils;
 import utils.FileUtils;
+import utils.waitUtils;
 
 public class HomePage {
 	
+	protected WebDriver driver;
+	
 	public HomePage(WebDriver driver) {
+		this.driver = driver;
 		PageFactory.initElements(driver, this);
 	}
 	
@@ -66,7 +70,18 @@ public class HomePage {
 	@FindBy(xpath="//li/a/img[@title=\"All Tabs\"]")
 	public WebElement plusIcon;	
 	
+	public boolean validateHomePageTitle() throws FileNotFoundException, IOException {
+		boolean isHomePageDispalyed = false;
+		waitUtils.waitForPageToLoad(driver, 20);
+		String expectedTitle = FileUtils.readLoginPropertiesFile("homepage.title");
+		if(driver.getTitle().contains(expectedTitle)) {
+			return isHomePageDispalyed = true;
+		}
+		return isHomePageDispalyed;
+	}
+	
 	public void clickUserMenu() {
+		waitUtils.waitForElementToBeClickable(driver, this.userMenuDropDown, 15);
 		this.userMenuDropDown.click();
 	}
 	
@@ -79,24 +94,42 @@ public class HomePage {
 		return actualOptions;
 	}
 	
-	public MyProfilePage goToMyProfile(WebDriver driver) {
+	public MyProfilePage goToMyProfile() {
 		this.myProfile.click();
 		return new MyProfilePage(driver);
 	}
 	
-	public MySettingsPage goToMySettings(WebDriver driver) {
+	public boolean validateMyProfilePage() throws FileNotFoundException, IOException {
+		boolean isMyProfilePageOpened = false;
+		String expectedTitle = FileUtils.readMyProfilePropertiesFile("myprofile.title");
+		if(driver.getTitle().contains(expectedTitle)) {
+			isMyProfilePageOpened = true;
+		}
+		return isMyProfilePageOpened;
+	}
+	
+	public MySettingsPage goToMySettings() {
 		this.mySettings.click();
 		return new MySettingsPage(driver);
 	}
 	
-	public DeveloperConsole goToDeveloperConsole(WebDriver driver) {
+	public boolean validateMySettingsPage() throws FileNotFoundException, IOException {
+		boolean isMySettingsPageOpened = false;
+		String expectedTitle = FileUtils.readMySettingsPropertiesFile("mysettings.title");
+		if(driver.getTitle().contains(expectedTitle)) {
+			isMySettingsPageOpened = true;
+		}
+		return isMySettingsPageOpened;
+	}
+	
+	public DeveloperConsole goToDeveloperConsole() {
 		this.developerConsole.click();
 		return new DeveloperConsole(driver);
 	}
 	
-	public LoginPage clickLogout(WebDriver driver) {
+	public LoginPage clickLogout() {
 		this.logout.click();
 		return new LoginPage(driver);
 	}
-
+	
 }

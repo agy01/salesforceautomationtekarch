@@ -41,4 +41,8 @@ public class waitUtils {
 			WebDriverWait wait = new WebDriverWait(driver, Duration.ofSeconds(20));
 			return wait.until(ExpectedConditions.visibilityOfElementLocated(locator));
 		}
+		
+		public static void waitForPageToLoad(WebDriver driver, int timeOutInSec) {
+			driver.manage().timeouts().pageLoadTimeout(Duration.ofSeconds(timeOutInSec));
+		}
 }
