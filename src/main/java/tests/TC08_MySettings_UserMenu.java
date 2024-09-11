@@ -7,59 +7,51 @@ import org.testng.Assert;
 import org.testng.annotations.Test;
 
 import utils.BaseTest;
-import utils.FileUtils;
-import utils.waitUtils;
 
 public class TC08_MySettings_UserMenu extends BaseTest {
 
 		@Test
 		public void validateMySettingOption() throws FileNotFoundException, IOException {
 		
-		//Launch the application
+		//Launch and login to the application
 		lp.launchApplication();
-		//Login to the application
-		lp.loginToApplication(driver, FileUtils.readLoginPropertiesFile("valid.username"), FileUtils.readLoginPropertiesFile("valid.password"));
+		lp.loginToApplication();
 		
-		//Click on the usermenu drop down
-		waitUtils.waitForElementToBeClickable(driver, hp.userMenuDropDown, 20);
+		//Click on the user menu drop down and validate
 		hp.clickUserMenu();
-		//Validate the usermenu options with the expectedoptions
-		hp.areAllOptionsPresent();
+		Assert.assertTrue(hp.areAllOptionsPresent(), "All options should be present as expected"); 
 		
 		//Click on My settings option and Validate the title
-		hp.goToMySettings(driver);
-		waitUtils.waitForTitle(driver, FileUtils.readMySettingsPropertiesFile("mysettings.title"), 20);
-		Assert.assertEquals(driver.getTitle(), FileUtils.readMySettingsPropertiesFile("mysettings.title"), "Actual and expected Title of my setting page should match");
+		hp.goToMySettings();
+		Assert.assertTrue(hp.validateMySettingsPage(), "My Settings page title should be matched");
 		
 		//Click on personal link and select login history in my settings and validate the title of login history page
 		mySettings.clickOnPersonalLink();
-		waitUtils.waitForTitle(driver, FileUtils.readMySettingsPropertiesFile("loginhistory.title"), 20);
-		Assert.assertEquals(driver.getTitle(), FileUtils.readMySettingsPropertiesFile("loginhistory.title"), "Actual and expected title of login history should be same");
+		Assert.assertTrue(mySettings.validatePersonalLinkLoginHistoryPage(), "Login history page should be dispalyed");
 		
 		//click on download login history link
 		mySettings.clickOnDownloadLoginHistory();
-		mySettings.isfiledownloaded(FileUtils.readMySettingsPropertiesFile("downloads.directory"), "LoginHistory");
-		
+		Assert.assertTrue(mySettings.isfiledownloaded(), "Login History file should be downloaded to local system");
 		
 		//Click on Display and layouts link, click customize my tabs and select salesforce Chatter
 		mySettings.setupDisplayAndLayout();
 				
 		//Search for reports element in availableTab and adds to the selectedTab
-		mySettings.addReportsToSelectedTab();
+		Assert.assertTrue(mySettings.addReportsToSelectedTab(), "Reports tab should be added to selectedTab"); 
 		
 		//Enter the email name, email address and save
-		mySettings.setupEmailSettings(FileUtils.readMySettingsPropertiesFile("sender.emailname"), FileUtils.readMySettingsPropertiesFile("sender.emailaddress"));
+		mySettings.setupEmailSettings();
 		
 		//Validate if the email settings is saved
-		mySettings.isEmailSettingsSaved(FileUtils.readMySettingsPropertiesFile("emailsettings.saved.confirmationmessage"));
+		Assert.assertTrue(mySettings.isEmailSettingsSaved(), "Email settings should be saved"); 
 		
 		//Trigger a reminder under Calender and Reminder
 		mySettings.goToCalenderReminderandTriggerTestReminder();
 		
 		//Validate if the window pops up
 //		mySettings.switchToPopUpWindow();
-		boolean reminderWindowPopUp = mySettings.isReminderWindowPopUp();
-		Assert.assertTrue(reminderWindowPopUp, "Window should pop up to trigger reminder");
+//		boolean reminderWindowPopUp = mySettings.isReminderWindowPopUp();
+		Assert.assertTrue(mySettings.isReminderWindowPopUp(), "Window should pop up to trigger reminder");
 		
 //		mySettings.switchBackToMainWindow();
 		

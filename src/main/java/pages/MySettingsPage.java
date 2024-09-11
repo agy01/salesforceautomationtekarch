@@ -1,6 +1,8 @@
 package pages;
 
 import java.io.File;
+import java.io.FileNotFoundException;
+import java.io.IOException;
 import java.util.List;
 
 import org.openqa.selenium.WebDriver;
@@ -9,6 +11,7 @@ import org.openqa.selenium.support.FindBy;
 import org.openqa.selenium.support.PageFactory;
 
 import utils.ActionUtils;
+import utils.FileUtils;
 import utils.waitUtils;
 
 public class MySettingsPage {
@@ -71,7 +74,7 @@ public class MySettingsPage {
 		public WebElement activityReminder;
 			@FindBy(xpath = "//input[@id=\"testbtn\"]")
 			public WebElement testReminder;
-				@FindBy(tagName = "form")
+				@FindBy(xpath = "//form[@id=\"reminder\"]")
 				public WebElement reminderPopUp;
 
 	//Method will Navigate to personal link and then select Login History 
@@ -80,15 +83,26 @@ public class MySettingsPage {
 		ActionUtils.mouseHover(driver, this.loginHistory);
 	}
 	
+	public boolean validatePersonalLinkLoginHistoryPage() throws FileNotFoundException, IOException {
+		boolean isLoginHistoryPageDisplayed = false;
+		String expectedPageTitle = FileUtils.readMySettingsPropertiesFile("loginhistory.title");
+		if(driver.getTitle().contains(expectedPageTitle)) {
+			isLoginHistoryPageDisplayed = true;
+		}
+		return isLoginHistoryPageDisplayed;
+	}
+	
 	//Method will click on download login history link
 	public void clickOnDownloadLoginHistory() {
 		this.downloadLoginHostory.click();
 	}
 	
 	//Method will validate if the file downloaded in local system is as expected
-	public boolean isfiledownloaded(String downloadsDir, String fileName) {
-		File dir = new File(downloadsDir);
-		File[] files = dir.listFiles((d, name) -> name.startsWith(fileName) && name.endsWith(".csv"));
+	public boolean isfiledownloaded() throws FileNotFoundException, IOException {
+		String downloadsDirectory = FileUtils.readMySettingsPropertiesFile("downloads.directory");
+		String downloadedFilename = FileUtils.readMySettingsPropertiesFile("downloaded.filename");
+		File dir = new File(downloadsDirectory);
+		File[] files = dir.listFiles((d, name) -> name.startsWith(downloadedFilename) && name.endsWith(".csv"));
 		System.out.println("Login History File is downloaded");
 		return files != null && files.length > 0;
 	}
@@ -102,32 +116,41 @@ public class MySettingsPage {
 	}
 	
 	//Method will add the reports element from the available tabs to selected tab
-	public void addReportsToSelectedTab() {
+	public boolean addReportsToSelectedTab() {
 		boolean isReportsAlreadyInSelectedTab = ActionUtils.isElementPresentInList(this.selectedTabs, "Reports");
 		if(!isReportsAlreadyInSelectedTab) {
 			ActionUtils.selectElementInList(this.availableTabs, "Reports");
 			this.addButton.click();
+			this.saveButton.click();
+			System.out.println("Reports tab is added to selectedTab");
+			return true;
+		}else {
+			System.out.println("Reports tab was already present in selectedTab");
+	        return isReportsAlreadyInSelectedTab;
 		}
-		this.saveButton.click();
-		System.out.println("Reports tab is added to selectedTab");
+		
+		
 	}
 	
 	//Method will navigate to Email, email settings and enter the details and save
-	public void setupEmailSettings(String senderName, String senderEmailAddress) {
+	public void setupEmailSettings() throws FileNotFoundException, IOException {
 		this.email.click();
 		this.myEmailSettings.click();
 		this.emailName.clear();
+		String senderName = FileUtils.readMySettingsPropertiesFile("sender.emailname");
 		this.emailName.sendKeys(senderName);
 		this.emailAddress.clear();
+		String senderEmailAddress = FileUtils.readMySettingsPropertiesFile("sender.emailaddress");
 		this.emailAddress.sendKeys(senderEmailAddress);
 		this.AutomaticBccYesRadioButton.click();
 		this.saveEmailSettings.click();
 	}
 	
 	//Method will validate if the Email settings are saved
-	public boolean isEmailSettingsSaved(String expectedTextMessage) {
+	public boolean isEmailSettingsSaved() throws FileNotFoundException, IOException {
 			if(this.saveCompleteConfirmation.isDisplayed()) {
 			String actualTextMessage = this.saveCompleteConfirmation.getText();
+			String expectedTextMessage = FileUtils.readMySettingsPropertiesFile("emailsettings.saved.confirmationmessage");
 			return actualTextMessage.equals(expectedTextMessage);
 		}
 		return false;
@@ -142,10 +165,18 @@ public class MySettingsPage {
 	
 	//Method will validate if the window pops up
 	public boolean isReminderWindowPopUp() {
+		boolean isWindowOpned = false;
 		ActionUtils.switchToPopUpWindow(driver);
-		waitUtils.waitForElementToBeVisible(driver, this.reminderPopUp, 30);
+		waitUtils.waitForElementToBeVisible(driver, this.reminderPopUp, 20);
+		
+		waitUtils.waitForElementToBeVisible(driver, this.reminderPopUp, 20);
+		if(this.reminderPopUp.isDisplayed()) {
+			System.out.println("Window pop up is displayed");
+			return isWindowOpned = true;
+		}
 		ActionUtils.switchBackToMainWindow(driver);
-		return reminderPopUp.isDisplayed();
+		System.out.println("Window pop up was not dispalyed");
+		return isWindowOpned;
 	}
 	
 	

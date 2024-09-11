@@ -10,6 +10,7 @@ import org.openqa.selenium.support.FindBy;
 import org.openqa.selenium.support.PageFactory;
 
 import utils.FileUtils;
+import utils.waitUtils;
 
 public class LoginPage {
 	
@@ -63,6 +64,7 @@ public class LoginPage {
 	//Method to validate application page title 
 	public boolean validatePageTitle() throws FileNotFoundException, IOException {
 		boolean isTitleMatched = false;
+		waitUtils.waitForTitle(driver, FileUtils.readLoginPropertiesFile("prod.application.title"), 20);
 		String expectedApplicationTitle = FileUtils.readLoginPropertiesFile("prod.application.title");
 		String actualApplicationTitle = driver.getTitle();
 		if(actualApplicationTitle.equals(expectedApplicationTitle)) {
@@ -100,13 +102,16 @@ public class LoginPage {
 		this.forgotPassword.click();
 	}
 	
-	public void enterUserNameInForgotPasswordPage(String username) {
+	public void enterUserNameInForgotPasswordPage() throws FileNotFoundException, IOException {
+		String username = FileUtils.readLoginPropertiesFile("valid.username");
 		this.forgot_username.sendKeys(username);
 		this.continueButton.click();
 	}
 	
-	public HomePage loginToApplication(WebDriver driver, String username, String password) {
+	public HomePage loginToApplication() throws FileNotFoundException, IOException {
+		String username = FileUtils.readLoginPropertiesFile("valid.username");
 		this.enterUserName(username);
+		String password = FileUtils.readLoginPropertiesFile("valid.password");
 		this.enterPassword(password);
 		this.clickLogin();
 		return new HomePage(driver);
