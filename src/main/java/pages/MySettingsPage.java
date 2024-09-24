@@ -1,5 +1,6 @@
 package pages;
 
+
 import java.io.File;
 import java.io.FileNotFoundException;
 import java.io.IOException;
@@ -8,19 +9,15 @@ import java.util.List;
 import org.openqa.selenium.WebDriver;
 import org.openqa.selenium.WebElement;
 import org.openqa.selenium.support.FindBy;
-import org.openqa.selenium.support.PageFactory;
 
 import utils.ActionUtils;
 import utils.FileUtils;
 import utils.waitUtils;
 
-public class MySettingsPage {
-	
-	protected WebDriver driver;
+public class MySettingsPage extends BasePage{
 	
 	public MySettingsPage(WebDriver driver) {
-		this.driver = driver;
-		PageFactory.initElements(driver, this);
+		super(driver);
 	}
 	
 	
@@ -78,12 +75,12 @@ public class MySettingsPage {
 				public WebElement reminderPopUp;
 
 	//Method will Navigate to personal link and then select Login History 
-	public void clickOnPersonalLink() {
+	public void clickOnPersonalLink(WebDriver driver) {
 		this.personalLink.click();
 		ActionUtils.mouseHover(driver, this.loginHistory);
 	}
 	
-	public boolean validatePersonalLinkLoginHistoryPage() throws FileNotFoundException, IOException {
+	public boolean validatePersonalLinkLoginHistoryPage(WebDriver driver) throws FileNotFoundException, IOException {
 		boolean isLoginHistoryPageDisplayed = false;
 		String expectedPageTitle = FileUtils.readMySettingsPropertiesFile("loginhistory.title");
 		if(driver.getTitle().contains(expectedPageTitle)) {
@@ -93,7 +90,7 @@ public class MySettingsPage {
 	}
 	
 	//Method will click on download login history link
-	public void clickOnDownloadLoginHistory() {
+	public void clickOnDownloadLoginHistory(WebDriver driver) {
 		this.downloadLoginHostory.click();
 	}
 	
@@ -108,7 +105,7 @@ public class MySettingsPage {
 	}
 	
 	//Method will Navigate to display & layout, customize my tabs and from the custom app selects salesforce chatter
-	public void setupDisplayAndLayout() {
+	public void setupDisplayAndLayout(WebDriver driver) {
 		this.displayAndLayout.click();
 		this.customizeMyTabs.click();
 		this.customAppDropdown.click();
@@ -116,7 +113,7 @@ public class MySettingsPage {
 	}
 	
 	//Method will add the reports element from the available tabs to selected tab
-	public boolean addReportsToSelectedTab() {
+	public boolean addReportsToSelectedTab(WebDriver driver) {
 		boolean isReportsAlreadyInSelectedTab = ActionUtils.isElementPresentInList(this.selectedTabs, "Reports");
 		if(!isReportsAlreadyInSelectedTab) {
 			ActionUtils.selectElementInList(this.availableTabs, "Reports");
@@ -164,7 +161,7 @@ public class MySettingsPage {
 	}
 	
 	//Method will validate if the window pops up
-	public boolean isReminderWindowPopUp() {
+	public boolean isReminderWindowPopUp(WebDriver driver) {
 		boolean isWindowOpned = false;
 		ActionUtils.switchToPopUpWindow(driver);
 		waitUtils.waitForElementToBeVisible(driver, this.reminderPopUp, 20);

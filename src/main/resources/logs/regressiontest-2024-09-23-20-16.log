@@ -1,0 +1,16 @@
+2024-09-23-20:16:10 INFO  Browser instance launched
+2024-09-23-20:16:10 INFO  Browser instance launched
+2024-09-23-20:16:13 DEBUG LoginPage : launchApplication:Navigate to login page
+2024-09-23-20:16:13 DEBUG LoginPage : launchApplication:Navigate to login page
+2024-09-23-20:16:14 DEBUG LoginPage : launchApplication:Navigate to login page
+2024-09-23-20:16:21 DEBUG LoginPage : enterUserName : Username is entered
+2024-09-23-20:16:21 DEBUG LoginPage : enterUserName : Username is entered
+2024-09-23-20:16:22 DEBUG LoginPage : enterUserName : Username is entered
+2024-09-23-20:16:23 DEBUG LoginPage : enterPassword : Password is entered
+2024-09-23-20:16:23 DEBUG LoginPage : enterPassword : Password is entered
+2024-09-23-20:16:25 DEBUG LoginPage : clickLogin : Login button is clicked
+2024-09-23-20:16:25 DEBUG LoginPage : errorMessage :Error Message is fetched
+2024-09-23-20:16:26 INFO  TC01_LoginErrorWithoutPassword testing is completed
+2024-09-23-20:16:30 DEBUG LoginPage : clickLogin : Login button is clicked
+2024-09-23-20:16:31 DEBUG LoginPage : clickLogin : Login button is clicked
+2024-09-23-20:16:31 DEBUG LoginPage : loginToApplication : Logged out

@@ -1,0 +1,33 @@
+2024-09-23-18:13:16 INFO  Browser instance launched
+2024-09-23-18:13:17 DEBUG LoginPage : launchApplication:Navigate to login page
+2024-09-23-18:13:17 DEBUG LoginPage : validatePageTitle : Check if the login page title matched
+2024-09-23-18:13:19 DEBUG LoginPage : enterUserName : Username is entered
+2024-09-23-18:13:19 DEBUG LoginPage : ValidateUsername : Check if the username entered matches
+2024-09-23-18:13:20 DEBUG LoginPage : enterPassword : Password is entered
+2024-09-23-18:13:20 DEBUG LoginPage : ValidatePassword : Check if the password entered matches
+2024-09-23-18:13:20 DEBUG LoginPage : clickLogin : Login button is clicked
+2024-09-23-18:13:20 DEBUG LoginPage : errorMessage :Error Message is fetched
+2024-09-23-18:13:20 INFO  TC01_LoginErrorWithoutPassword testing is completed
+2024-09-23-18:13:25 DEBUG LoginPage : launchApplication:Navigate to login page
+2024-09-23-18:13:25 DEBUG LoginPage : validatePageTitle : Check if the login page title matched
+2024-09-23-18:13:27 DEBUG LoginPage : enterUserName : Username is entered
+2024-09-23-18:13:28 DEBUG LoginPage : enterPassword : Password is entered
+2024-09-23-18:13:31 DEBUG LoginPage : clickLogin : Login button is clicked
+2024-09-23-18:13:31 DEBUG LoginPage : loginToApplication : Logged out
+2024-09-23-18:13:36 DEBUG LoginPage : launchApplication:Navigate to login page
+2024-09-23-18:13:36 DEBUG LoginPage : validatePageTitle : Check if the login page title matched
+2024-09-23-18:13:37 DEBUG LoginPage : clickForgotPassword : Clicked on forget password
+2024-09-23-18:13:38 DEBUG LoginPage : enterUserNameInForgotPasswordPage : Entered username and clicked continue
+2024-09-23-18:13:44 DEBUG LoginPage : launchApplication:Navigate to login page
+2024-09-23-18:13:44 DEBUG LoginPage : validatePageTitle : Check if the login page title matched
+2024-09-23-18:13:47 DEBUG LoginPage : enterUserName : Username is entered
+2024-09-23-18:13:47 DEBUG LoginPage : enterPassword : Password is entered
+2024-09-23-18:13:47 DEBUG LoginPage : clickLogin : Login button is clicked
+2024-09-23-18:13:47 DEBUG LoginPage : errorMessage :Error Message is fetched
+2024-09-23-18:13:51 DEBUG LoginPage : launchApplication:Navigate to login page
+2024-09-23-18:13:52 DEBUG LoginPage : validatePageTitle : Check if the login page title matched
+2024-09-23-18:13:54 DEBUG LoginPage : enterUserName : Username is entered
+2024-09-23-18:13:54 DEBUG LoginPage : enterPassword : Password is entered
+2024-09-23-18:13:55 DEBUG LoginPage : checkBoxRememberMe : Remember me is checked
+2024-09-23-18:14:03 DEBUG LoginPage : clickLogin : Login button is clicked
+2024-09-23-18:14:09 DEBUG LoginPage : checkSavedUser : Saved the username

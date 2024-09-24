@@ -1,0 +1,28 @@
+2024-09-23-18:26:46 INFO  Browser instance launched
+2024-09-23-18:26:47 DEBUG LoginPage : launchApplication:Navigate to login page
+2024-09-23-18:26:48 DEBUG LoginPage : validatePageTitle : Check if the login page title matched
+2024-09-23-18:26:48 DEBUG LoginPage : launchApplication:Navigate to login page
+2024-09-23-18:26:49 DEBUG LoginPage : validatePageTitle : Check if the login page title matched
+2024-09-23-18:26:50 DEBUG LoginPage : enterUserName : Username is entered
+2024-09-23-18:26:50 DEBUG LoginPage : enterUserName : Username is entered
+2024-09-23-18:26:50 DEBUG LoginPage : ValidateUsername : Check if the username entered matches
+2024-09-23-18:26:51 DEBUG LoginPage : enterPassword : Password is entered
+2024-09-23-18:26:51 DEBUG LoginPage : enterPassword : Password is entered
+2024-09-23-18:27:00 DEBUG LoginPage : launchApplication:Navigate to login page
+2024-09-23-18:27:00 DEBUG LoginPage : validatePageTitle : Check if the login page title matched
+2024-09-23-18:27:01 DEBUG LoginPage : clickLogin : Login button is clicked
+2024-09-23-18:27:01 DEBUG LoginPage : loginToApplication : Logged out
+2024-09-23-18:27:01 DEBUG LoginPage : clickForgotPassword : Clicked on forget password
+2024-09-23-18:27:08 DEBUG LoginPage : launchApplication:Navigate to login page
+2024-09-23-18:27:08 DEBUG LoginPage : validatePageTitle : Check if the login page title matched
+2024-09-23-18:27:09 DEBUG LoginPage : enterUserName : Username is entered
+2024-09-23-18:27:10 DEBUG LoginPage : enterPassword : Password is entered
+2024-09-23-18:27:11 DEBUG LoginPage : clickLogin : Login button is clicked
+2024-09-23-18:27:11 DEBUG LoginPage : errorMessage :Error Message is fetched
+2024-09-23-18:27:18 DEBUG LoginPage : launchApplication:Navigate to login page
+2024-09-23-18:27:18 DEBUG LoginPage : validatePageTitle : Check if the login page title matched
+2024-09-23-18:27:23 DEBUG LoginPage : enterUserName : Username is entered
+2024-09-23-18:27:43 DEBUG LoginPage : enterPassword : Password is entered
+2024-09-23-18:27:43 DEBUG LoginPage : checkBoxRememberMe : Remember me is checked
+2024-09-23-18:27:53 DEBUG LoginPage : clickLogin : Login button is clicked
+2024-09-23-18:27:58 DEBUG LoginPage : checkSavedUser : Saved the username

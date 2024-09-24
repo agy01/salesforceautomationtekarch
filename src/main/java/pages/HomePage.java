@@ -8,20 +8,16 @@ import java.util.List;
 import org.openqa.selenium.WebDriver;
 import org.openqa.selenium.WebElement;
 import org.openqa.selenium.support.FindBy;
-import org.openqa.selenium.support.PageFactory;
 import org.testng.Assert;
 
 import utils.ActionUtils;
 import utils.FileUtils;
 import utils.waitUtils;
 
-public class HomePage {
-	
-	protected WebDriver driver;
+public class HomePage extends BasePage{
 	
 	public HomePage(WebDriver driver) {
-		this.driver = driver;
-		PageFactory.initElements(driver, this);
+		super(driver);
 	}
 	
 	@FindBy(xpath="//div[@id=\"userNav-arrow\"]")
@@ -55,7 +51,7 @@ public class HomePage {
 	@FindBy(id="ContentSubscriptions_Tab")
 	public WebElement subscriptionsTab;
 	
-	@FindBy(xpath = "//a[contains(text(), \"Accounts\")]")
+	@FindBy(xpath = "//li[@id= \"Account_Tab\"]")
 	public WebElement accountsTab;
 	
 	@FindBy(id="Opportunity_Tab")
@@ -70,9 +66,12 @@ public class HomePage {
 	@FindBy(xpath="//li/a/img[@title=\"All Tabs\"]")
 	public WebElement plusIcon;	
 	
-	public boolean validateHomePageTitle() throws FileNotFoundException, IOException {
+	
+	//Method will validate the Home page title
+	public boolean validateHomePageTitle(WebDriver driver
+			) throws FileNotFoundException, IOException {
 		boolean isHomePageDispalyed = false;
-		waitUtils.waitForPageToLoad(driver, 20);
+		waitUtils.ExplicityWait(driver, this.userMenuDropDown);
 		String expectedTitle = FileUtils.readLoginPropertiesFile("homepage.title");
 		if(driver.getTitle().contains(expectedTitle)) {
 			return isHomePageDispalyed = true;
@@ -80,11 +79,13 @@ public class HomePage {
 		return isHomePageDispalyed;
 	}
 	
-	public void clickUserMenu() {
+	
+	public void clickUserMenu(WebDriver driver) {
 		waitUtils.waitForElementToBeClickable(driver, this.userMenuDropDown, 15);
 		this.userMenuDropDown.click();
 	}
 	
+	//Method validates if all options under the user menu is present as expected
 	public boolean areAllOptionsPresent() throws FileNotFoundException, IOException {
 		String options = FileUtils.readLoginPropertiesFile("usermenu.options");
 		List<String> expectedOptions = Arrays.asList(options.split(","));
@@ -94,12 +95,13 @@ public class HomePage {
 		return actualOptions;
 	}
 	
-	public MyProfilePage goToMyProfile() {
+	public MyProfilePage goToMyProfile(WebDriver driver) {
 		this.myProfile.click();
 		return new MyProfilePage(driver);
 	}
 	
-	public boolean validateMyProfilePage() throws FileNotFoundException, IOException {
+	//Method will validate the home page Title
+	public boolean validateMyProfilePage(WebDriver driver) throws FileNotFoundException, IOException {
 		boolean isMyProfilePageOpened = false;
 		String expectedTitle = FileUtils.readMyProfilePropertiesFile("myprofile.title");
 		if(driver.getTitle().contains(expectedTitle)) {
@@ -108,12 +110,13 @@ public class HomePage {
 		return isMyProfilePageOpened;
 	}
 	
-	public MySettingsPage goToMySettings() {
+	public MySettingsPage goToMySettings(WebDriver driver) {
 		this.mySettings.click();
 		return new MySettingsPage(driver);
 	}
 	
-	public boolean validateMySettingsPage() throws FileNotFoundException, IOException {
+	//Method will validate my settings page
+	public boolean validateMySettingsPage(WebDriver driver) throws FileNotFoundException, IOException {
 		boolean isMySettingsPageOpened = false;
 		String expectedTitle = FileUtils.readMySettingsPropertiesFile("mysettings.title");
 		if(driver.getTitle().contains(expectedTitle)) {
@@ -122,14 +125,42 @@ public class HomePage {
 		return isMySettingsPageOpened;
 	}
 	
-	public DeveloperConsole goToDeveloperConsole() {
+	public DeveloperConsole goToDeveloperConsole(WebDriver driver) {
 		this.developerConsole.click();
 		return new DeveloperConsole(driver);
 	}
 	
-	public LoginPage clickLogout() {
+	//Method to validate the developer console window title
+	public boolean validateDevConsoleWindowTitle(WebDriver driver) throws FileNotFoundException, IOException {
+		boolean isWindowTitleMatched = false;
+		String expectedTitle = FileUtils.readDeveloperConsolePropertiesFile("devconsole.windowtitle");
+		if (driver.getTitle().contains(expectedTitle)) {
+			isWindowTitleMatched = true;
+		}
+		return isWindowTitleMatched;
+	}
+		
+	
+	public LoginPage clickLogout(WebDriver driver) {
 		this.logout.click();
 		return new LoginPage(driver);
+	}
+	
+	public AccountsTabPage clickOnAccountsTab(WebDriver driver) {
+		waitUtils.waitForElementToBeClickable(driver, this.accountsTab, 20);
+		this.accountsTab.click();
+		return new AccountsTabPage(driver);
+	}
+	
+	public boolean validateAccountsTabPage(WebDriver driver) throws FileNotFoundException, IOException {
+		boolean isAccountsPageOpened = false;
+		waitUtils.waitForTitle(driver, FileUtils.readAccountsTabPropertiesFile("accountstab.title"), 25);
+		String expectedTitle = FileUtils.readAccountsTabPropertiesFile("accountstab.title");
+		
+		if(driver.getTitle().contains(expectedTitle)) {
+			isAccountsPageOpened = true;
+		}
+		return isAccountsPageOpened;
 	}
 	
 }

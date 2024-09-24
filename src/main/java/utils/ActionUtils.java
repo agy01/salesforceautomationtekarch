@@ -3,7 +3,6 @@ package utils;
 import java.util.List;
 import java.util.Set;
 
-import org.openqa.selenium.By;
 import org.openqa.selenium.WebDriver;
 import org.openqa.selenium.WebElement;
 import org.openqa.selenium.interactions.Actions;
@@ -52,7 +51,7 @@ public class ActionUtils {
 		
 	}
 	
-	// Method to check if an element is already present in the list
+	// Method to check if an element is already present in the list(like selected tabs)
 	public static boolean isElementPresentInList(WebElement listElement, String value) {
 		Select select = new Select(listElement);
 		List<WebElement> allOptions = select.getOptions();
@@ -104,4 +103,22 @@ public class ActionUtils {
 	        }
 	    }
     }
+	
+	//Method to select value from the dropdown using visible text
+	public static void selectElementByVisibleText(WebElement dropdownElement, String visibleText) {
+		Select select = new Select(dropdownElement);
+		select.selectByVisibleText(visibleText);
+		
+	}
+	
+	//Method will select all the check boxed available in the table
+	public static void selectAllCheckboxes(List<WebElement> checkboxes) {
+		if(checkboxes.size() > 0) {
+			for(WebElement checkbox : checkboxes) {
+				if(!checkbox.isSelected()) {
+					checkbox.click();
+				}
+			}
+		}
+	}
 }

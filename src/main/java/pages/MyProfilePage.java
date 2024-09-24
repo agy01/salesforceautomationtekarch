@@ -9,21 +9,16 @@ import org.openqa.selenium.WebDriver;
 import org.openqa.selenium.WebElement;
 import org.openqa.selenium.interactions.Actions;
 import org.openqa.selenium.support.FindBy;
-import org.openqa.selenium.support.PageFactory;
 
 import contants.FileConstants;
 import utils.ActionUtils;
 import utils.FileUtils;
 import utils.waitUtils;
 
-public class MyProfilePage {
-	
-	//initializing the driver globally
-	protected WebDriver driver;
+public class MyProfilePage extends BasePage{
 	
 	public MyProfilePage(WebDriver driver) {
-		this.driver = driver;
-		PageFactory.initElements(driver, this);
+		super(driver);
 	}
 	
 	
@@ -85,7 +80,7 @@ public class MyProfilePage {
 	/**
 	 * clicks on edit profile icon and switch to iframe
 	 */
-	public void clickOnEditProfile() {
+	public void clickOnEditProfile(WebDriver driver) {
 		this.editProfile.click();
 		driver.switchTo().frame(editProfileIframe);
 	}
@@ -95,7 +90,7 @@ public class MyProfilePage {
 	 * validates if the window has about and contact tabs and switch back to main frame
 	 * @return
 	 */
-	public boolean areAboutTabAndContactTabisDispalyed() {
+	public boolean areAboutTabAndContactTabisDispalyed(WebDriver driver) {
 		boolean areTheTabsDisplayed = false;
 		try {
 			waitUtils.waitForElementToBeVisible(driver, aboutTab, 10);
@@ -118,7 +113,7 @@ public class MyProfilePage {
 	}
 	
 	//Enters the lastname in the About tab and switch back to the main frame
-	public void editlastnameInAboutTab() throws FileNotFoundException, IOException {
+	public void editlastnameInAboutTab(WebDriver driver) throws FileNotFoundException, IOException {
 		String lastname = FileUtils.readMyProfilePropertiesFile("about.lastname");
 		this.lastname.clear();
 		this.lastname.sendKeys(lastname);
@@ -138,7 +133,7 @@ public class MyProfilePage {
 	}
 	
 	//clicks on post, enters the text message and shares
-	public void postAMessage() {
+	public void postAMessage(WebDriver driver) {
 		try {
 		this.post.click();
 		driver.switchTo().frame(postWindowIframe);
@@ -154,7 +149,7 @@ public class MyProfilePage {
 	}
 	
 	//Validates the message posted in the feed
-	public boolean isPostShared() throws FileNotFoundException, IOException {
+	public boolean isPostShared(WebDriver driver) throws FileNotFoundException, IOException {
 		boolean isMessagePosted = false;
 		String expectedMessage = FileUtils.readMyProfilePropertiesFile("post.message");
 		WebElement sharedPost = waitUtils.visibilityOfElementLocated(driver, By.xpath("//span/p[contains(text(), '" + expectedMessage + "')]"));
@@ -176,7 +171,7 @@ public class MyProfilePage {
 	
 	
 	//Validate the shared file on the feed
-	public boolean isFileShared() throws FileNotFoundException, IOException {
+	public boolean isFileShared(WebDriver driver) throws FileNotFoundException, IOException {
 		boolean isFileUploaded = false;
 		String expectedfilename = FileUtils.readMyProfilePropertiesFile("upload.filename");
 		WebElement fileInFeed = waitUtils.visibilityOfElementLocated(driver, By.xpath("//span[contains(text(), '" + expectedfilename +"')]"));
@@ -189,7 +184,7 @@ public class MyProfilePage {
 	}
 	
 	//Click on add photo and switch to iframe and save the photo
-	public void addProfilePhoto() {
+	public void addProfilePhoto(WebDriver driver) {
 		ActionUtils.mouseHover(driver, this.addPhoto);
 		driver.switchTo().frame(addPhotoIframe);
 		waitUtils.waitForElementToBeVisible(driver, this.choosePhoto, 20);
@@ -198,7 +193,7 @@ public class MyProfilePage {
 	}
 	
 	//crop the selected photo and switches back to the main frame
-	public void cropProfilePhoto() {
+	public void cropProfilePhoto(WebDriver driver) {
 //		WebDriverWait wait = new WebDriverWait(driver, Duration.ofSeconds(20));
 //		WebElement cropHandle = wait.until(ExpectedConditions.visibilityOfElementLocated(By.xpath("//div[@class=\"imgCrop_handle imgCrop_handleNW\"]/following-sibling::div")));
 		WebElement cropHandle = waitUtils.visibilityOfElementLocated(driver, By.xpath("//div[@class=\"imgCrop_handle imgCrop_handleNW\"]/following-sibling::div"));
@@ -210,7 +205,7 @@ public class MyProfilePage {
 	}
 	
 	//Validates if the photo is uploaded
-	public boolean isPhotoUploaded() {
+	public boolean isPhotoUploaded(WebDriver driver) {
 		boolean isPhotoDisplayed = false;
 		WebElement photoUploaded = waitUtils.visibilityOfElementLocated(driver,
 				By.xpath("//span[@class=\"profileImage chatter-avatarFull chatter-avatar\"]"));
