@@ -1,6 +1,0 @@
-2024-09-23-20:00:27 DEBUG LoginPage : launchApplication:Navigate to login page
-2024-09-23-20:00:28 DEBUG LoginPage : launchApplication:Navigate to login page
-2024-09-23-20:00:31 DEBUG LoginPage : enterUserName : Username is entered
-2024-09-23-20:00:31 DEBUG LoginPage : enterUserName : Username is entered
-2024-09-23-20:00:32 DEBUG LoginPage : enterPassword : Password is entered
-2024-09-23-20:00:36 DEBUG LoginPage : clickLogin : Login button is clicked
