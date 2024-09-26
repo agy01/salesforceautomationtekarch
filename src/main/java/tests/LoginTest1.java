@@ -20,18 +20,28 @@ import utils.waitUtils;
 
 @Listeners(ListenersSFDC.class)
 public class LoginTest1 extends BaseTest{
-		
+
+//	protected LoginPage lp;
+//	protected HomePage hp;
+//	
+//	@BeforeMethod
+//	public void appsetup() {
+//		WebDriver driver = getDriver();
+//		lp = new LoginPage(driver);
+//		hp = new HomePage(driver);
+//	}
+	
 	@Test
 	public void loginWithoutPassword() throws FileNotFoundException, IOException {
-		WebDriver driver = getDriver();
-		driver.manage().timeouts().implicitlyWait(Duration.ofSeconds(20));
-		LoginPage lp = new LoginPage(driver);
+//		WebDriver driver = getDriver();
+		getDriver().manage().timeouts().implicitlyWait(Duration.ofSeconds(20));
+		LoginPage lp = new LoginPage(getDriver());
 		logger.info("Browser instance launched");
 		test.get().info("Launching Application");
-		lp.launchApplication(driver);
+		lp.launchApplication(getDriver());
 		test.get().info("Validating application Title");
 		String expectedUsername = FileUtils.readLoginPropertiesFile("valid.username");
-		lp.enterUserName(expectedUsername);
+		lp.enterUserName(getDriver(), expectedUsername);
 		test.get().info("Entered Username");
 		String actualUsername = ActionUtils.getElementAttribute(lp.username);
 		Assert.assertEquals(actualUsername, expectedUsername, "Actual and expected useranme should be same");
@@ -49,28 +59,28 @@ public class LoginTest1 extends BaseTest{
 	
 	@Test
 	public void validLogin() throws FileNotFoundException, IOException {
-		WebDriver driver = getDriver();
-		driver.manage().timeouts().implicitlyWait(Duration.ofSeconds(20));
-		LoginPage lp = new LoginPage(driver);
+//		WebDriver driver = getDriver();
+		getDriver().manage().timeouts().implicitlyWait(Duration.ofSeconds(20));
+		LoginPage lp = new LoginPage(getDriver());
 		logger.info("Browser instance launched");
 		test.get().info("Launching Application");
-		lp.launchApplication(driver);
+		lp.launchApplication(getDriver());
 		test.get().info("Validating application Title");
-		lp.loginToApplication(driver);
+		lp.loginToApplication(getDriver());
 		test.get().info( "Validate home page");
-		HomePage hp = new HomePage(driver);
-		Assert.assertTrue(hp.validateHomePageTitle(driver), "Homepage should be dispalyed");
+		HomePage hp = new HomePage(getDriver());
+		Assert.assertTrue(hp.validateHomePageTitle(getDriver()), "Homepage should be dispalyed");
 		System.out.println("TC02_UserLoginWithoutError testing completed");
 		logger.info("TC01_LoginErrorWithoutPassword testing is completed");
 	}
 
 	@Test
 	public void validateRememberMe() throws InterruptedException, FileNotFoundException, IOException {
-		WebDriver driver = getDriver();
-		driver.manage().timeouts().implicitlyWait(Duration.ofSeconds(20));
-		LoginPage lp = new LoginPage(driver);
+//		WebDriver driver = getDriver();
+		getDriver().manage().timeouts().implicitlyWait(Duration.ofSeconds(20));
+		LoginPage lp = new LoginPage(getDriver());
 		test.get().info("Launching Application");
-		lp.launchApplication(driver);
+		lp.launchApplication(getDriver());
 		test.get().info("Validating if Remember me is checked");
 		if(lp.rememberMe.isDisplayed()) {
 			lp.rememberMe.click();
@@ -79,21 +89,21 @@ public class LoginTest1 extends BaseTest{
 			System.out.println("Remember me was not clicked");
 		}
 		String expectedUsername = FileUtils.readLoginPropertiesFile("valid.username");
-		lp.enterUserName(expectedUsername);
+		lp.enterUserName(getDriver(), expectedUsername);
 		String actualUsername = ActionUtils.getElementAttribute(lp.username);
 		Assert.assertEquals(actualUsername, expectedUsername, "Actual and expected useranme should be same");
 		lp.enterPassword(FileUtils.readLoginPropertiesFile("valid.password"));
 		test.get().info("Clicking on login...");
 		lp.clickLogin();
-		HomePage hp = new HomePage(driver);
+		HomePage hp = new HomePage(getDriver());
 		test.get().info("Validate home page");
 		String expectedHomePageTitle = FileUtils.readLoginPropertiesFile("homepage.title");
-		waitUtils.waitForTitle(driver, expectedHomePageTitle, 20);
-		Assert.assertEquals(driver.getTitle(), expectedHomePageTitle, "After login user should land on home page");
+		waitUtils.waitForTitle(getDriver(), expectedHomePageTitle, 20);
+		Assert.assertEquals(getDriver().getTitle(), expectedHomePageTitle, "After login user should land on home page");
 		test.get().info("Clicking on usermenu drop down...");
-		hp.clickUserMenu(driver);
+		hp.clickUserMenu(getDriver());
 		test.get().info("Clicking on logout..");
-		ActionUtils.selectDropDownValue(driver, hp.dropdownElement, "Logout");
+		ActionUtils.selectDropDownValue(getDriver(), hp.dropdownElement, "Logout");
 		Thread.sleep(2000);
 		test.get().info("Checking if username is saved...");
 		Assert.assertEquals(lp.checkSavedUser(), FileUtils.readLoginPropertiesFile("valid.username"),
@@ -105,20 +115,21 @@ public class LoginTest1 extends BaseTest{
 	
 	@Test
 	public void validateForgetPassword() throws FileNotFoundException, IOException {
-		WebDriver driver = getDriver();
-		driver.manage().timeouts().implicitlyWait(Duration.ofSeconds(20));
-		LoginPage lp = new LoginPage(driver);
+//		WebDriver driver = getDriver();
+		getDriver().manage().timeouts().implicitlyWait(Duration.ofSeconds(20));
+		LoginPage lp = new LoginPage(getDriver());
 		test.get().info("Launching Application");
-		lp.launchApplication(driver);
+		lp.launchApplication(getDriver());
 		test.get().info("Clicking on forget password...");
 		lp.clickForgotPassword();
 		test.get().info("Validating if forget password page is displayed...");
-		Assert.assertEquals(driver.getTitle(), FileUtils.readLoginPropertiesFile("forgotPassword.title"),
+		waitUtils.waitForTitle(getDriver(), getDriver().getTitle(), 20);
+		Assert.assertEquals(getDriver().getTitle(), FileUtils.readLoginPropertiesFile("forgotPassword.title"),
 				"Forgot Password Page should be displayed");
 		test.get().info("Entering username...");
-		lp.enterUserNameInForgotPasswordPage();
+		lp.enterUserNameInForgotPasswordPage(getDriver());
 		test.get().info("Validating if email is sent...");
-		Assert.assertEquals(driver.getTitle(), FileUtils.readLoginPropertiesFile("checkEmail.title"),
+		Assert.assertEquals(getDriver().getTitle(), FileUtils.readLoginPropertiesFile("checkEmail.title"),
 				"Password reset email should be sent to the user");
 		System.out.println("TC04_ValidateForgotPassword Testing is completed");
 		logger.info("TC04_ValidateForgotPassword testing is completed");
@@ -126,14 +137,14 @@ public class LoginTest1 extends BaseTest{
 	
 	@Test
 	public void validateInvalidCreds() throws FileNotFoundException, IOException {
-		WebDriver driver = getDriver();
-		driver.manage().timeouts().implicitlyWait(Duration.ofSeconds(20));
-		LoginPage lp = new LoginPage(driver);
+//		WebDriver driver = getDriver();
+		getDriver().manage().timeouts().implicitlyWait(Duration.ofSeconds(20));
+		LoginPage lp = new LoginPage(getDriver());
 		test.get().info("Launching Application");
-		lp.launchApplication(driver);
+		lp.launchApplication(getDriver());
 		test.get().info("Entering invalid username...");
 		String expectedUsername = FileUtils.readLoginPropertiesFile("invalid.username");
-		lp.enterUserName(expectedUsername);
+		lp.enterUserName(getDriver(), expectedUsername);
 		String actualUsername = ActionUtils.getElementAttribute(lp.username);
 		Assert.assertEquals(actualUsername, expectedUsername, "Actual and Expected Username should be same");
 		test.get().info("Entering invalid password...");

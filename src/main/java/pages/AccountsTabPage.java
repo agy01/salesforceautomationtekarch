@@ -2,6 +2,7 @@ package pages;
 
 import java.io.FileNotFoundException;
 import java.io.IOException;
+import java.lang.System.Logger;
 import java.util.List;
 
 import org.openqa.selenium.Alert;
@@ -72,6 +73,44 @@ public class AccountsTabPage extends BasePage {
 		@FindBy(xpath = "//div[@class=\"pbTopButtons\"]/input[2]")
 		public WebElement mergeButton;
 		
+	@FindBy(xpath = "//a[contains(text(), \"Accounts with last activity > 30 days\")]")
+	public WebElement lastActivity;
+		@FindBy(xpath = "//div[@id=\"ext-gen147\"]")
+		public WebElement dateField;
+		@FindBy(xpath = "//div[contains(text(), \"Created Date\")]")
+		public WebElement createdDateOption;
+		@FindBy(xpath = "//img[@id=\"ext-gen152\"]")
+		public WebElement fromDate;
+			@FindBy(xpath = "//button[@id=\"ext-gen281\"]")
+			public WebElement todayButton;
+		@FindBy(xpath = "//input[@id=\"ext-comp-1045\"]")
+		public WebElement toDate;
+			@FindBy(xpath = "//button[@id=\"ext-gen301\"]")
+			public WebElement todaysButton;
+		@FindBy(xpath = "//button[@id=\"ext-gen49\"]")
+		public WebElement saveUnsavedReport;
+		@FindBy(xpath = "//div[@id=\"ext-gen287\"]")
+		public WebElement saveReportWindow;
+			@FindBy(xpath = "//input[@id=\"saveReportDlg_reportNameField\"]")
+			public WebElement reportName;
+			@FindBy(xpath = "//input[@id=\"saveReportDlg_DeveloperName\"]")
+			public WebElement reportUniqueName;
+			@FindBy(id = "ext-gen319")
+			public WebElement saveAndRunReport;
+			@FindBy(xpath = "//h1[@class=\"noSecondHeader pageType\"]")
+			public WebElement savedName;
+			
+	
+	
+	public boolean validateSavedReport() {
+		boolean isReportSaved = false;
+		if(this.savedName.isDisplayed()) {
+			isReportSaved = true;
+			System.out.println("Report is saved");
+		}
+		return isReportSaved;
+	}
+	
 	public void clickOnNewButton() {
 		this.newButton.click();
 	}
@@ -181,5 +220,59 @@ public class AccountsTabPage extends BasePage {
 			areAccountsMerged = true;
 		}
 		return areAccountsMerged;
+	}
+	
+	public void clickOnLastActivityLink() {
+		this.lastActivity.click();
+	}
+	
+	public boolean validateLastActivityReport(WebDriver driver) throws FileNotFoundException, IOException {
+		boolean isReportDispalyed = false;
+		String expectedUnsavedReport = FileUtils.readAccountsTabPropertiesFile("lastactivityreport.title");
+		String actualUnsavedReport = driver.getTitle();
+		if(actualUnsavedReport.equals(expectedUnsavedReport)) {
+			isReportDispalyed = true;
+		}
+		return isReportDispalyed;		
+	}
+	
+	public void selectDateField() {
+		this.dateField.click();
+		this.createdDateOption.click();
+	}
+	
+	public void selectTodaysDateinFromField() {
+		this.fromDate.click();
+		this.todayButton.click();
+	}
+	
+	public void selectTodayInToField(WebDriver driver) {
+		this.toDate.click();
+		this.toDate.clear();
+		this.toDate.sendKeys("9/25/2024");
+	}
+	
+	public void saveUnsavedReport() {
+		this.saveUnsavedReport.click();
+	}
+	
+	public boolean switchToPopUpWindow(WebDriver driver) {
+		boolean isSaveReporWindowOpened = false;
+		try {
+			ActionUtils.switchToPopUpWindow(driver);
+			waitUtils.waitForElementToBeVisible(driver, this.saveReportWindow, 20);
+			if(this.saveReportWindow.isDisplayed()) {
+				isSaveReporWindowOpened = true;
+				this.reportName.sendKeys("Final Report");
+				this.reportUniqueName.click();
+				this.reportUniqueName.clear();
+				this.reportUniqueName.sendKeys("Final_Todays_Report");
+				this.saveAndRunReport.click();
+			}
+		}catch (Exception e) {
+			System.out.println("Exception while validating the pop up window to save report: " + e.getMessage());
+		}
+		ActionUtils.switchBackToMainWindow(driver);
+		return isSaveReporWindowOpened;
 	}
 }

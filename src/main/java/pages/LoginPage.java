@@ -4,6 +4,8 @@ package pages;
 import java.io.FileNotFoundException;
 import java.io.IOException;
 
+import org.openqa.selenium.By;
+import org.openqa.selenium.StaleElementReferenceException;
 import org.openqa.selenium.WebDriver;
 import org.openqa.selenium.WebElement;
 import org.openqa.selenium.support.FindBy;
@@ -71,7 +73,8 @@ public class LoginPage extends BasePage {
 		return isTitleMatched;
 	}
 	
-	public void enterUserName(String username) {
+	public void enterUserName(WebDriver driver, String username) {
+//		waitUtils.ExplicityWaitforElement(driver, By.id(username));
 		this.username.clear();
 		this.username.sendKeys(username);
 		logger.debug("LoginPage : enterUserName : Username is entered");
@@ -132,16 +135,26 @@ public class LoginPage extends BasePage {
 		logger.debug("LoginPage : clickForgotPassword : Clicked on forget password");
 	}
 	
-	public void enterUserNameInForgotPasswordPage() throws FileNotFoundException, IOException {
-		String username = FileUtils.readLoginPropertiesFile("valid.username");
-		this.forgot_username.sendKeys(username);
-		this.continueButton.click();
+	public void enterUserNameInForgotPasswordPage(WebDriver driver) throws FileNotFoundException, IOException {
+//		int attempts = 0;
+//		while(attempts < 3) {
+//			try {
+//				waitUtils.waitForElementToBeVisible(driver, this.forgot_username, 20);
+				String username = FileUtils.readLoginPropertiesFile("valid.username");
+				this.forgot_username.sendKeys(username);
+				this.continueButton.click();
+//				break;
+//			}catch(StaleElementReferenceException e) {
+//				attempts++;
+//			}
+//		}
 		logger.debug("LoginPage : enterUserNameInForgotPasswordPage : Entered username and clicked continue");
+//		return username;
 	}
 	
 	public HomePage loginToApplication(WebDriver driver) throws FileNotFoundException, IOException {
 		String username = FileUtils.readLoginPropertiesFile("valid.username");
-		this.enterUserName(username);
+		this.enterUserName(driver, username);
 		String password = FileUtils.readLoginPropertiesFile("valid.password");
 		this.enterPassword(password);
 		this.clickLogin();

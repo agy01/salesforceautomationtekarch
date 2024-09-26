@@ -24,12 +24,12 @@ import utils.waitUtils;
 public class LoginTest extends BaseTest {
 
 	protected LoginPage lp = null;
-//	protected HomePage hp = null;
+	protected HomePage hp = null;
 	
 //	@BeforeMethod
 	public void loginPage() throws FileNotFoundException, IOException {
 		lp = new LoginPage(getDriver());
-//		hp = new HomePage(getDriver());
+		hp = new HomePage(getDriver());
 		
 	}
 	@Test
@@ -42,7 +42,7 @@ public class LoginTest extends BaseTest {
 		test.get().info("Validating application Title");
 		lp.validatePageTitle(driver);
 		driver.manage().timeouts().implicitlyWait(Duration.ofSeconds(20));
-		lp.enterUserName(FileUtils.readLoginPropertiesFile("valid.username"));
+		lp.enterUserName(driver, FileUtils.readLoginPropertiesFile("valid.username"));
 		test.get().info("Entered Username");
 		lp.validateUsername(driver);
 		test.get().info("Validating the username");
@@ -92,7 +92,7 @@ public class LoginTest extends BaseTest {
 		lp.validatePageTitle(driver);
 		driver.manage().timeouts().implicitlyWait(Duration.ofSeconds(20));
 		test.get().info("Logging in...");
-		lp.enterUserName(FileUtils.readLoginPropertiesFile("valid.username"));
+		lp.enterUserName(driver, FileUtils.readLoginPropertiesFile("valid.username"));
 		lp.enterPassword(FileUtils.readLoginPropertiesFile("valid.password"));
 		test.get().info("Checkbox Remeber Me...");
 		lp.checkBoxRememberMe();
@@ -129,7 +129,7 @@ public class LoginTest extends BaseTest {
 		Assert.assertEquals(driver.getTitle(), FileUtils.readLoginPropertiesFile("forgotPassword.title"),
 				"Forgot Password Page should be displayed");
 		test.get().info("Entering username...");
-		lp.enterUserNameInForgotPasswordPage();
+		lp.enterUserNameInForgotPasswordPage(driver);
 		test.get().info("Validating if email is sent...");
 		Assert.assertEquals(driver.getTitle(), FileUtils.readLoginPropertiesFile("checkEmail.title"),
 				"Password reset email should be sent to the user");
@@ -147,7 +147,7 @@ public class LoginTest extends BaseTest {
 		driver.manage().timeouts().implicitlyWait(Duration.ofSeconds(20));
 		test.get().info("Entering invalid username...");
 		String expectedUsername = FileUtils.readLoginPropertiesFile("invalid.username");
-		lp.enterUserName(expectedUsername);
+		lp.enterUserName(driver, expectedUsername);
 		String actualUsername = ActionUtils.getElementAttribute(lp.username);
 		Assert.assertEquals(actualUsername, expectedUsername, "Actual and Expected Username should be same");
 		test.get().info("Entering invalid password...");
