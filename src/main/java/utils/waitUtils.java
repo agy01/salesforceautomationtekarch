@@ -18,6 +18,13 @@ public class waitUtils {
 			wait.until(ExpectedConditions.visibilityOf(elementToWait));
 		}
 		
+		public static void ExplicityWaitforElement(WebDriver driver, By elementToWait) {
+			// Create a WebDriverWait object with a timeout of 30 seconds
+			WebDriverWait wait = new WebDriverWait(driver, Duration.ofSeconds(100));
+			// Wait until the specified WebElement is visible on the page
+			wait.until(ExpectedConditions.presenceOfElementLocated(elementToWait));
+		}
+		
 		//Method used to wait for Element to be visible
 		public static void waitForElementToBeVisible(WebDriver driver, WebElement element, int timeoutInSec) {
 			WebDriverWait wait = new WebDriverWait(driver, Duration.ofSeconds(timeoutInSec));

@@ -20,17 +20,27 @@ import com.aventstack.extentreports.ExtentReports;
 import com.aventstack.extentreports.ExtentTest;
 
 import pages.HomePage;
+import pages.LoginPage;
 
 import java.lang.reflect.Method;
 
 public class BaseTest {
 	
+//	protected LoginPage lp;
+//	protected HomePage hp;
 	
-	ExtentReports extent;
-	public HomePage hp = null;
+	
+	private static ExtentReports extent;
+
 	public static ThreadLocal<ExtentTest> test = new ThreadLocal<ExtentTest>(); 
 	public static ThreadLocal<WebDriver> threadLocalDriver = new ThreadLocal<WebDriver>();
 	public static Logger logger = LogManager.getLogger("BaseTest");
+	
+	private static synchronized void initExtentReports() {
+        if (extent == null) {
+            extent = ReportManager.getInstance();
+        }
+    }
 	
 	public void setDriver(String browserName, boolean headless) {
 		WebDriver driver = getBrowser(browserName, headless);
@@ -85,7 +95,7 @@ public class BaseTest {
 
 	@BeforeSuite
 	public void setupSuite() {
-		extent = ReportManager.getInstance();
+		initExtentReports();
 	}
 	
 	@AfterSuite
@@ -99,12 +109,22 @@ public class BaseTest {
 		test.set(extent.createTest(name.getName()));		
 		setDriver(browsername, false);
 		WebDriver driver = getDriver();
-		driver.manage().window().maximize();		
+		driver.manage().window().maximize();
+//		lp = new LoginPage(driver);
+//		hp = new HomePage(driver);
 	}
 
 	@AfterMethod(alwaysRun = true)
 	public void teardown() {
-		getDriver().close();
+		try {
+			if(getDriver()!=null) {
+				getDriver().quit();
+			}
+		}catch(Exception e) {
+			logger.error("Error during driver teardown: ", e);
+		}finally {
+			threadLocalDriver.remove();
+		}
 	}
 	
 }

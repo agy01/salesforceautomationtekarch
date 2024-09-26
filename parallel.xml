@@ -4,7 +4,9 @@
 <parameter name="bName" value="chrome"></parameter>
   <test thread-count="3" parallel="methods" name="Test">
     <classes>
-      <class name="tests.LoginTest1"/>
+      <class name="tests.LoginTest1"/> 
+      <class name="tests.UserMenuTest1"/>
+      <class name="tests.CreateAccountsTest1"/>
     </classes>
   </test> <!-- Test -->
 </suite> <!-- ParallelSuite -->

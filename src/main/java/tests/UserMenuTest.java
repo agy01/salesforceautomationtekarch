@@ -163,7 +163,7 @@ public class UserMenuTest extends BaseTest {
 	}
 
 //	@Test
-	public void validateLogoutOption() throws FileNotFoundException, IOException {
+	public void validateDeveloperConsoleOption() throws FileNotFoundException, IOException {
 		WebDriver driver = getDriver();
 		// Launch Application and login
 		lp.launchApplication(driver);

@@ -1,0 +1,99 @@
+2024-09-26-12:40:06 INFO  Browser instance launched
+2024-09-26-12:40:07 INFO  Browser instance launched
+2024-09-26-12:40:09 DEBUG LoginPage : launchApplication:Navigate to login page
+2024-09-26-12:40:11 DEBUG LoginPage : launchApplication:Navigate to login page
+2024-09-26-12:40:13 DEBUG LoginPage : launchApplication:Navigate to login page
+2024-09-26-12:40:20 DEBUG LoginPage : clickForgotPassword : Clicked on forget password
+2024-09-26-12:40:23 DEBUG LoginPage : enterUserName : Username is entered
+2024-09-26-12:40:24 DEBUG LoginPage : enterUserNameInForgotPasswordPage : Entered username and clicked continue
+2024-09-26-12:40:24 INFO  TC04_ValidateForgotPassword testing is completed
+2024-09-26-12:40:25 DEBUG LoginPage : clickLogin : Login button is clicked
+2024-09-26-12:40:25 DEBUG LoginPage : errorMessage :Error Message is fetched
+2024-09-26-12:40:26 INFO  TC01_LoginErrorWithoutPassword testing is completed
+2024-09-26-12:40:27 DEBUG LoginPage : enterUserName : Username is entered
+2024-09-26-12:40:27 DEBUG LoginPage : enterPassword : Password is entered
+2024-09-26-12:40:32 DEBUG LoginPage : clickLogin : Login button is clicked
+2024-09-26-12:40:32 DEBUG LoginPage : loginToApplication : Logged out
+2024-09-26-12:40:35 INFO  TC01_LoginErrorWithoutPassword testing is completed
+2024-09-26-12:40:48 DEBUG LoginPage : launchApplication:Navigate to login page
+2024-09-26-12:40:52 DEBUG LoginPage : launchApplication:Navigate to login page
+2024-09-26-12:40:55 DEBUG LoginPage : enterUserName : Username is entered
+2024-09-26-12:40:57 DEBUG LoginPage : enterUserName : Username is entered
+2024-09-26-12:40:57 DEBUG LoginPage : enterPassword : Password is entered
+2024-09-26-12:40:57 DEBUG LoginPage : clickLogin : Login button is clicked
+2024-09-26-12:40:57 DEBUG LoginPage : errorMessage :Error Message is fetched
+2024-09-26-12:40:58 DEBUG LoginPage : enterPassword : Password is entered
+2024-09-26-12:40:58 INFO  TC05_ValidateInvalidCredErrorMessage testing is completed
+2024-09-26-12:41:08 DEBUG LoginPage : clickLogin : Login button is clicked
+2024-09-26-12:41:12 DEBUG LoginPage : launchApplication:Navigate to login page
+2024-09-26-12:41:12 DEBUG LoginPage : validatePageTitle : Check if the login page title matched
+2024-09-26-12:41:17 DEBUG LoginPage : enterUserName : Username is entered
+2024-09-26-12:41:20 DEBUG LoginPage : checkSavedUser : Saved the username
+2024-09-26-12:41:20 INFO  TC03_ValidateRememberMe testing is completed
+2024-09-26-12:41:21 DEBUG LoginPage : enterPassword : Password is entered
+2024-09-26-12:41:23 DEBUG LoginPage : launchApplication:Navigate to login page
+2024-09-26-12:41:24 DEBUG LoginPage : validatePageTitle : Check if the login page title matched
+2024-09-26-12:41:28 DEBUG LoginPage : clickLogin : Login button is clicked
+2024-09-26-12:41:28 DEBUG LoginPage : loginToApplication : Logged out
+2024-09-26-12:41:29 DEBUG LoginPage : enterUserName : Username is entered
+2024-09-26-12:41:30 DEBUG LoginPage : enterPassword : Password is entered
+2024-09-26-12:41:35 DEBUG LoginPage : clickLogin : Login button is clicked
+2024-09-26-12:41:35 DEBUG LoginPage : loginToApplication : Logged out
+2024-09-26-12:41:41 DEBUG LoginPage : validatePageTitle : Check if the login page title matched
+2024-09-26-12:41:41 INFO  TC10_validateLogoutOption testing is completed
+2024-09-26-12:41:41 INFO  TC09_validateDeveloperConsoleOption testing is completed
+2024-09-26-12:41:47 DEBUG LoginPage : launchApplication:Navigate to login page
+2024-09-26-12:41:47 DEBUG LoginPage : validatePageTitle : Check if the login page title matched
+2024-09-26-12:41:51 DEBUG LoginPage : enterUserName : Username is entered
+2024-09-26-12:41:53 DEBUG LoginPage : enterPassword : Password is entered
+2024-09-26-12:41:53 DEBUG LoginPage : launchApplication:Navigate to login page
+2024-09-26-12:41:53 DEBUG LoginPage : validatePageTitle : Check if the login page title matched
+2024-09-26-12:41:54 DEBUG LoginPage : enterUserName : Username is entered
+2024-09-26-12:41:54 DEBUG LoginPage : enterPassword : Password is entered
+2024-09-26-12:42:05 DEBUG LoginPage : clickLogin : Login button is clicked
+2024-09-26-12:42:05 DEBUG LoginPage : loginToApplication : Logged out
+2024-09-26-12:42:05 DEBUG LoginPage : clickLogin : Login button is clicked
+2024-09-26-12:42:05 DEBUG LoginPage : loginToApplication : Logged out
+2024-09-26-12:42:08 DEBUG LoginPage : launchApplication:Navigate to login page
+2024-09-26-12:42:09 DEBUG LoginPage : validatePageTitle : Check if the login page title matched
+2024-09-26-12:42:12 DEBUG LoginPage : enterUserName : Username is entered
+2024-09-26-12:42:13 DEBUG LoginPage : enterPassword : Password is entered
+2024-09-26-12:42:18 DEBUG LoginPage : clickLogin : Login button is clicked
+2024-09-26-12:42:18 DEBUG LoginPage : loginToApplication : Logged out
+2024-09-26-12:42:23 INFO  TC06_validateUserMenuDropDown testing is completed
+2024-09-26-12:42:31 INFO  TC08_validateMySettingOption testing is completed
+2024-09-26-12:42:42 DEBUG LoginPage : launchApplication:Navigate to login page
+2024-09-26-12:42:43 DEBUG LoginPage : validatePageTitle : Check if the login page title matched
+2024-09-26-12:42:43 DEBUG LoginPage : launchApplication:Navigate to login page
+2024-09-26-12:42:44 DEBUG LoginPage : validatePageTitle : Check if the login page title matched
+2024-09-26-12:42:47 DEBUG LoginPage : enterUserName : Username is entered
+2024-09-26-12:42:47 DEBUG LoginPage : enterUserName : Username is entered
+2024-09-26-12:42:48 DEBUG LoginPage : enterPassword : Password is entered
+2024-09-26-12:42:49 DEBUG LoginPage : enterPassword : Password is entered
+2024-09-26-12:42:54 DEBUG LoginPage : clickLogin : Login button is clicked
+2024-09-26-12:42:54 DEBUG LoginPage : loginToApplication : Logged out
+2024-09-26-12:42:57 DEBUG LoginPage : clickLogin : Login button is clicked
+2024-09-26-12:42:57 DEBUG LoginPage : loginToApplication : Logged out
+2024-09-26-12:42:58 INFO  TC07_validateMyProfieOption testing is completed
+2024-09-26-12:43:08 INFO  TC11_CreateAccountsUnderAccountsTab testing is completed
+2024-09-26-12:43:12 DEBUG LoginPage : launchApplication:Navigate to login page
+2024-09-26-12:43:13 DEBUG LoginPage : validatePageTitle : Check if the login page title matched
+2024-09-26-12:43:15 DEBUG LoginPage : enterUserName : Username is entered
+2024-09-26-12:43:16 INFO  TC14_MergeAccountsUnderAccountsTab testing is completed
+2024-09-26-12:43:17 DEBUG LoginPage : enterPassword : Password is entered
+2024-09-26-12:43:20 DEBUG LoginPage : clickLogin : Login button is clicked
+2024-09-26-12:43:20 DEBUG LoginPage : loginToApplication : Logged out
+2024-09-26-12:43:29 DEBUG LoginPage : launchApplication:Navigate to login page
+2024-09-26-12:43:29 DEBUG LoginPage : validatePageTitle : Check if the login page title matched
+2024-09-26-12:43:33 DEBUG LoginPage : enterUserName : Username is entered
+2024-09-26-12:43:33 DEBUG LoginPage : enterPassword : Password is entered
+2024-09-26-12:43:37 DEBUG LoginPage : clickLogin : Login button is clicked
+2024-09-26-12:43:37 DEBUG LoginPage : loginToApplication : Logged out
+2024-09-26-12:43:43 DEBUG LoginPage : launchApplication:Navigate to login page
+2024-09-26-12:43:43 DEBUG LoginPage : validatePageTitle : Check if the login page title matched
+2024-09-26-12:43:47 DEBUG LoginPage : enterUserName : Username is entered
+2024-09-26-12:43:48 DEBUG LoginPage : enterPassword : Password is entered
+2024-09-26-12:43:48 INFO  TC12_validateCreateNewViewUnderAccountsTab testing is completed
+2024-09-26-12:43:53 DEBUG LoginPage : clickLogin : Login button is clicked
+2024-09-26-12:43:53 DEBUG LoginPage : loginToApplication : Logged out
+2024-09-26-12:44:01 INFO  TC13_validateEditViewUnderAccountsTab testing is completed
